@@ -16,6 +16,7 @@ namespace TokenProject
         public override void Initialize(IComponent comp)
         {
             base.Initialize(comp);
+
         }
     }
 

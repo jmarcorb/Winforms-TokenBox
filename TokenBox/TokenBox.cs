@@ -34,12 +34,13 @@ namespace TokenProject
         private bool showFileIconInTokens = false;
         private bool showDeleteCross = true;
         
-        //TODO: private Color defaultTokenBorderColor;        
-        private Color defaultTokenForeColor = Color.Black;
+        private Color defaultTokenBorderColor = Color.DarkGray;
+        private Color defaultTokenBorderColorHovered = Color.DarkGray;
+        private Color defaultTokenTextColor = Color.Black;
         private Color defaultTokenForeColorHovered = Color.Blue;
         private Color defaultTokenBackgroundColor = Color.LightGray;
         private Color defaultTokenBackgroundColorHovered = Color.GhostWhite;
-        //TODO: private Color defaultTokenBorderColorHovered;
+        
         private Font defaultTokenFont = new Font("Microsoft Sans Serif", 8F, FontStyle.Regular);
         private Font defaultTokenFontHovered = new Font("Microsoft Sans Serif", 8F, FontStyle.Underline);
         
@@ -209,19 +210,19 @@ namespace TokenProject
             }
         }
 
-        //TODO:
-        //public Color DefaultTokenBorderColor
-        //{
-        //    get
-        //    {
-        //        return defaultTokenBorderColor;
-        //    }
 
-        //    set
-        //    {
-        //        defaultTokenBorderColor = value;
-        //    }
-        //}
+        public Color DefaultTokenBorderColor
+        {
+            get
+            {
+                return defaultTokenBorderColor;
+            }
+
+            set
+            {
+                defaultTokenBorderColor = value;
+            }
+        }
 
         public Font DefaultTokenFont
         {
@@ -240,12 +241,12 @@ namespace TokenProject
         {
             get
             {
-                return defaultTokenForeColor;
+                return defaultTokenTextColor;
             }
 
             set
             {
-                defaultTokenForeColor = value;
+                defaultTokenTextColor = value;
             }
         }
 
@@ -262,19 +263,19 @@ namespace TokenProject
             }
         }
 
-        //TODO:
-        //public Color DefaultTokenBorderColorHovered
-        //{
-        //    get
-        //    {
-        //        return defaultTokenBorderColorHovered;
-        //    }
+        
+        public Color DefaultTokenBorderColorHovered
+        {
+            get
+            {
+                return defaultTokenBorderColorHovered;
+            }
 
-        //    set
-        //    {
-        //        defaultTokenBorderColorHovered = value;
-        //    }
-        //}
+            set
+            {
+                defaultTokenBorderColorHovered = value;
+            }
+        }
 
         public Font DefaultTokenFontHovered
         {
@@ -352,6 +353,8 @@ namespace TokenProject
             newToken.ForeColorHovered = DefaultTokenForeColorHovered;
             newToken.Font = DefaultTokenFont;
             newToken.FontHovered = DefaultTokenFontHovered;
+            newToken.BorderColor = DefaultTokenBorderColor;
+            newToken.BorderColorHovered = defaultTokenBorderColorHovered;
             newToken.NotifyParentEvent += new NotifyParentDelegate(OnTokenClicked);
             this.Controls.Add(newToken);
             if (this.Controls.Contains(tb))

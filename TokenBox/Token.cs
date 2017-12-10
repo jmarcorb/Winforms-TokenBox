@@ -16,11 +16,14 @@ namespace TokenProject
         private int m_BorderWidth = 0;
         //private Color foreColorNormal;// = Color.Black; //color del texto
         private Color foreColorHovered;// = Color.Blue;
+        // foreColor provided by base control.
         //private Color tokenColorNormal;// = Color.LightGray;
-        private Color tokenColorHovered;// = Color.DarkGray;
-        private Color tokenColor;// = Color.LightGray;
+        private Color backgroundColorHovered;// = Color.DarkGray;
+        private Color backgroundColor;// = Color.LightGray;
         //private Font fontNormal;// = new Font("Microsoft Sans Serif", 8F, FontStyle.Regular);
         private Font fontHovered;// = new Font("Microsoft Sans Serif", 8F, FontStyle.Underline);
+        private Color borderColor;
+        private Color borderColorHovered;
         private bool showsX = true;
         private Size sizeDisplayedText = new Size();
         private Size sizeDisplayedX = new Size();
@@ -52,6 +55,16 @@ namespace TokenProject
             }
         }
 
+        public override Color BackColor
+        {
+            get
+            {
+                return base.BackColor;
+            }
+
+           
+        }
+
         public int BorderWidth
         {
             get
@@ -65,19 +78,6 @@ namespace TokenProject
             }
         }
 
-        //public Color ForeColorNormal
-        //{
-        //    get
-        //    {
-        //        return foreColorNormal;
-        //    }
-
-        //    set
-        //    {
-        //        foreColorNormal = value;
-        //    }
-        //}
-
         public bool ShowsX
         {
             get
@@ -90,7 +90,7 @@ namespace TokenProject
                 showsX = value;
                 if(showsX)
                 {
-                    sizeDisplayedX = Resources.StatusOffline_glyphRedNoHalo_16x.Size;// TextRenderer.MeasureText("x", fontX, new Size(1, 1), TextFormatFlags.SingleLine);
+                    sizeDisplayedX = Resources.CrossRed.Size;// TextRenderer.MeasureText("x", fontX, new Size(1, 1), TextFormatFlags.SingleLine);
                 }
                 else
                 {
@@ -167,19 +167,6 @@ namespace TokenProject
             }
         }
 
-        //public Font FontNormal
-        //{
-        //    get
-        //    {
-        //        return fontNormal;
-        //    }
-
-        //    set
-        //    {
-        //        fontNormal = value;
-        //    }
-        //}
-
         public Font FontHovered
         {
             get
@@ -206,29 +193,18 @@ namespace TokenProject
             }
         }
 
-        //public Color TokenColorNormal
-        //{
-        //    get
-        //    {
-        //        return tokenColorNormal;
-        //    }
-
-        //    set
-        //    {
-        //        tokenColorNormal = value;
-        //    }
-        //}
+     
 
         public Color TokenColorHovered
         {
             get
             {
-                return tokenColorHovered;
+                return backgroundColorHovered;
             }
 
             set
             {
-                tokenColorHovered = value;
+                backgroundColorHovered = value;
             }
         }
 
@@ -236,12 +212,38 @@ namespace TokenProject
         {
             get
             {
-                return tokenColor;
+                return backgroundColor;
             }
 
             set
             {
-                tokenColor = value;
+                backgroundColor = value;
+            }
+        }
+
+        public Color BorderColor
+        {
+            get
+            {
+                return borderColor;
+            }
+
+            set
+            {
+                borderColor = value;
+            }
+        }
+
+        public Color BorderColorHovered
+        {
+            get
+            {
+                return borderColorHovered;
+            }
+
+            set
+            {
+                borderColorHovered = value;
             }
         }
 
@@ -266,35 +268,12 @@ namespace TokenProject
             this.ShowFileIcon = ShowIcon;
             this.Text = TextToDisplay;
             this.TokenItem = Item;
-            
+            this.Margin = new Padding(1, 0, 1, 0);
         }
 
         #endregion Constructors
 
-        /// <summary>
-        /// To Set button properties when not active.i.e when button not in focus.
-        /// </summary>
-        //private void SetTokenNormal()
-        //{
-        //    this.isBeingHovered = false;
-        //    this.Font = FontNormal;           
-        //    this.MinimumSize = sizeDisplayedText;
-        //    this.ForeColor = this.ForeColorNormal;
-        //    this.TokenColor = this.TokenColorNormal;
-        //}
-        
-        /// <summary>
-        /// Set attributes to highlight button when it is under focus/active.
-        /// Change the cursor also as Hand type
-        /// </summary>
-        //private void SetTokenHovered()
-        //{
-        //    this.isBeingHovered = true;
-        //    this.Font = this.FontHovered;
-        //    this.ForeColor = this.ForeColorHovered;
-        //    this.TokenColor = this.TokenColorHovered;
-        //}
-
+       
 
         #region Events
         /// <summary>
@@ -303,36 +282,59 @@ namespace TokenProject
         /// <param name="pe"></param>
         protected override void OnPaint(PaintEventArgs pe)
         {
-            base.OnPaint(pe);            
+            base.OnPaint(pe);
+            // BEWARE, ORDER IN WICH ELEMENTS ARE PROCESSED HERE AFFECTS THE VISIBILIVTY. DEEPER LAYERS FIRST.
+            //1.BACKGROUND
+            //2.BORDER
+            //3.ICON (if any)
+            //4.TEXT
+            //5.CROSS (if any)
             Rectangle rFondo = this.DisplayRectangle; //ESTE ES TODO EL ÁREA DEL CONTROL
             //rect = this.ClientRectangle; //ESTE ES LA PARTE VISIBLE SOLO (UN PANEL CON SCROLL BARS SOLO MUESTRA CLIENTRECTANGLE)
             rFondo.X += 1;
             rFondo.Y += 1;
             rFondo.Width -= 2;
             rFondo.Height -= 2;
-
+            Color colorBgToken;
+            Color colorBorder;
+            Color colorText;
+            Font fontText;
+            if (this.isBeingHovered)
+            {
+                colorBgToken = TokenColorHovered;
+                colorBorder = BorderColorHovered;
+                colorText = ForeColorHovered;
+                fontText = FontHovered;
+            }
+            else
+            {
+                colorBgToken = TokenColor;
+                colorBorder = BorderColor;
+                colorText = ForeColor;
+                fontText = Font;
+            }
+          
             using (GraphicsPath bb = GetPathRoundCorners(rFondo, Radius))
             {
-                Color c;
-                if (this.isBeingHovered) c = TokenColorHovered;
-                else c = TokenColor;
-                using (Brush br = new SolidBrush(c))
+                
+                //BACKGROUND
+                using (Brush br = new SolidBrush(colorBgToken))
                 {
                     pe.Graphics.SmoothingMode = SmoothingMode.HighQuality;
                     pe.Graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
                     pe.Graphics.FillPath(br, bb);
                 }
 
-                using (Brush br = new SolidBrush(TokenColorHovered))
+                //BORDER
+                using (Brush br = new SolidBrush(colorBorder))
                 {
-                    rFondo.Inflate(-1, -1);
+                    
                     pe.Graphics.SmoothingMode = SmoothingMode.HighQuality;
                     pe.Graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
                     pe.Graphics.DrawPath(new Pen(br, BorderWidth), bb);
                 }
             }
-            
-            pe.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            //ICON
             if(this.ShowFileIcon)
             {
                 try
@@ -353,19 +355,15 @@ namespace TokenProject
                 }
                 
             }
+            //TEXT
+            pe.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            pe.Graphics.DrawString(this.Text, fontText, new SolidBrush(colorText), rText);
 
-            Color ct;
-            if (this.isBeingHovered) ct = ForeColorHovered;
-            else ct = ForeColor;
-            Font ft;
-            if (this.isBeingHovered) ft = FontHovered;
-            else ft = Font;
-            pe.Graphics.DrawString(this.Text, this.Font, new SolidBrush(ct),rText);
-
+            //CROSS
             if (this.ShowsX)
             {
-                if(isBeingHovered) pe.Graphics.DrawImage(Resources.StatusOffline_glyphRedNoHalo_16x, rCloseX);
-                else pe.Graphics.DrawImage(Resources.StatusOffline_glyphBlackNoHalo_16x, rCloseX);
+                if(isBeingHovered) pe.Graphics.DrawImage(Resources.CrossRed, rCloseX);
+                else pe.Graphics.DrawImage(Resources.CrossBlack, rCloseX);
             }
         }
 

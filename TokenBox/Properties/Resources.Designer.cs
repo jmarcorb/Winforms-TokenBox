@@ -63,9 +63,9 @@ namespace TokenProject.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap StatusOffline_glyphBlackNoHalo_16x {
+        internal static System.Drawing.Bitmap CrossBlack {
             get {
-                object obj = ResourceManager.GetObject("StatusOffline_glyphBlackNoHalo_16x", resourceCulture);
+                object obj = ResourceManager.GetObject("CrossBlack", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace TokenProject.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap StatusOffline_glyphRedNoHalo_16x {
+        internal static System.Drawing.Bitmap CrossRed {
             get {
-                object obj = ResourceManager.GetObject("StatusOffline_glyphRedNoHalo_16x", resourceCulture);
+                object obj = ResourceManager.GetObject("CrossRed", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -79,10 +79,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\unknownFile.ico" />
+    <None Include="Resources\StatusOffline_glyphBlackNoHalo_16x.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\StatusOffline_glyphBlackNoHalo_16x.png" />
+    <None Include="Resources\unknownFile.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

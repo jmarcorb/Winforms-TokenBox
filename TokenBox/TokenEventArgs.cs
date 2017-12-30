@@ -10,8 +10,10 @@ namespace TokenProject
         private string _name;
         private MouseButtons _mb;
         private object _tokenItem;
-        public TokenEventArgs(string Name, object Item, MouseButtons Mb)
+        private int _index;
+        public TokenEventArgs(string Name,int PositionInTokenBox , object Item, MouseButtons Mb)
         {
+            _index = PositionInTokenBox;
             _name = Name;
             _tokenItem = Item;
             _mb = Mb;
@@ -46,6 +48,19 @@ namespace TokenProject
             set
             {
                 _tokenItem = value;
+            }
+        }
+
+        public int Index
+        {
+            get
+            {
+                return _index;
+            }
+
+            set
+            {
+                _index = value;
             }
         }
     }

@@ -439,15 +439,16 @@ namespace TokenProject
         protected override void OnMouseClick(MouseEventArgs e)
         {
             base.OnMouseClick(e);
-            if (rCloseX.Contains(e.Location))
+            int indexOfThisToken = Parent.Controls.IndexOf(this);
+            if (rCloseX.Contains(e.Location) && e.Button==MouseButtons.Left)
             {
-                Parent.Controls.RemoveAt(Parent.Controls.IndexOf(this));
+                Parent.Controls.RemoveAt(indexOfThisToken);
             }else
             {
                 if (NotifyParentEvent != null)
                 {
-                    TokenEventArgs customEventArgs = new TokenEventArgs(this.Text,this.TokenItem,e.Button);
-                    NotifyParentEvent(customEventArgs);
+                    TokenEventArgs tokenEventArgs = new TokenEventArgs(this.Text,indexOfThisToken,this.TokenItem,e.Button);
+                    NotifyParentEvent(tokenEventArgs);
                 }
             }
         }

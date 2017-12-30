@@ -44,7 +44,7 @@ namespace TokenProject
         private Font defaultTokenFont = new Font("Microsoft Sans Serif", 8F, FontStyle.Regular);
         private Font defaultTokenFontHovered = new Font("Microsoft Sans Serif", 8F, FontStyle.Underline);
         
-        public event EventHandler TokenClicked;
+        public event EventHandler<TokenEventArgs> TokenClicked;
 
         #region Properties
 
@@ -78,7 +78,7 @@ namespace TokenProject
         }
 
         /// <summary>
-        /// Returns a copy of the collection of Tokens in the TokenBox.
+        /// Returns a List of Tokens in the TokenBox.
         /// </summary>
         public List<Token> Tokens
         {
@@ -393,9 +393,9 @@ namespace TokenProject
             else this.Cursor = Cursors.Default;
         }
 
-        public void OnTokenClicked(TokenEventArgs customEventArgs)
+        public void OnTokenClicked(TokenEventArgs tokenEventArgs)
         {
-            TokenClicked?.Invoke(null, customEventArgs);
+            TokenClicked?.Invoke(null, tokenEventArgs);
         }
 
         private void mouseClick(object sender, MouseEventArgs e)

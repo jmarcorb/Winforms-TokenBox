@@ -13,10 +13,10 @@ namespace TokenBoxExample
 
         private void Form1_Load(object sender, EventArgs e)
         {
-          
+
             String[] data = { "Jorge Martínez Corbalán", "Juan Carlos Bocos Rodríguez", "Juan Carlos Bretón Rodríguez", "Juan Carlos Coralksdjflkasjdfdsa" };
 
-           
+
 
             //tokenb.
         }
@@ -26,10 +26,7 @@ namespace TokenBoxExample
             tokenBox1.AddToken(textBox1.Text);
         }
 
-        private void tokenBox1_TokenClicked(object sender, EventArgs e)
-        {
-            MessageBox.Show(((TokenEventArgs)e).Text);
-        }
+
 
         private void chboxShowIcon_CheckedChanged(object sender, EventArgs e)
         {
@@ -37,7 +34,7 @@ namespace TokenBoxExample
         }
 
         private void chboxShowX_CheckedChanged(object sender, EventArgs e)
-        {          
+        {
             tokenBox1.ShowDeleteCross = chboxShowX.Checked;
         }
 
@@ -84,5 +81,23 @@ namespace TokenBoxExample
             if (colorDialog1.ShowDialog() == DialogResult.OK)
                 tokenBox1.DefaultTokenForeColorHovered = colorDialog1.Color;
         }
+
+        private void tokenBox1_TokenClicked(object sender, TokenEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                MessageBox.Show(string.Format("Token #{0} \"{1}\" clicked (Left MouseButton)", e.Index, e.Text), "Token clicked", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                for (int i = 0; i < contextMenuStrip1.Items.Count; i++)
+                {
+                    contextMenuStrip1.Items[i].Text = string.Format("Menu #{2} - do something with token #{0} \"{1}\"", e.Index, e.Text,i);
+                }
+                contextMenuStrip1.Show(MousePosition);
+            }
+        }
+
+      
     }
 }

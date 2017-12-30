@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -45,7 +46,11 @@
             this.button5 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.menu1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -151,6 +156,8 @@
             this.tokenBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.tokenBox1.DefaultTokenBackgroundColor = System.Drawing.Color.LightGray;
             this.tokenBox1.DefaultTokenBackgroundColorHovered = System.Drawing.Color.GhostWhite;
+            this.tokenBox1.DefaultTokenBorderColor = System.Drawing.Color.DarkGray;
+            this.tokenBox1.DefaultTokenBorderColorHovered = System.Drawing.Color.DarkGray;
             this.tokenBox1.DefaultTokenFont = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.tokenBox1.DefaultTokenFontHovered = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Underline);
             this.tokenBox1.DefaultTokenForeColor = System.Drawing.Color.Black;
@@ -163,6 +170,7 @@
             this.tokenBox1.ShowFileIconInTokens = false;
             this.tokenBox1.Size = new System.Drawing.Size(478, 32);
             this.tokenBox1.TabIndex = 12;
+            this.tokenBox1.TokenClicked += new System.EventHandler<TokenProject.TokenEventArgs>(this.tokenBox1_TokenClicked);
             // 
             // button3
             // 
@@ -218,6 +226,26 @@
             this.label1.TabIndex = 17;
             this.label1.Text = "Winforms TokenBox";
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menu1ToolStripMenuItem,
+            this.menu2ToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(282, 48);
+            // 
+            // menu1ToolStripMenuItem
+            // 
+            this.menu1ToolStripMenuItem.Name = "menu1ToolStripMenuItem";
+            this.menu1ToolStripMenuItem.Size = new System.Drawing.Size(281, 22);
+            this.menu1ToolStripMenuItem.Text = "do something with token #{0} \"{1}\"";
+            // 
+            // menu2ToolStripMenuItem
+            // 
+            this.menu2ToolStripMenuItem.Name = "menu2ToolStripMenuItem";
+            this.menu2ToolStripMenuItem.Size = new System.Drawing.Size(281, 22);
+            this.menu2ToolStripMenuItem.Text = "do something else with token #{0} \"{1}\"";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -237,6 +265,7 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -259,6 +288,9 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem menu1ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menu2ToolStripMenuItem;
     }
 }
 
